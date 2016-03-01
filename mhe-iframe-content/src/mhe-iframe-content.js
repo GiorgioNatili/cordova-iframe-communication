@@ -14,4 +14,16 @@ export class MheIframeContent {
     console.info('MheIframeContent Component Mounted Successfully');
   }
 
+  takePicture(event){
+
+    let cameraOptions = { quality: 50,
+        destinationType: 1 /*Camera.DestinationType.FILE_URI*/ };
+
+    var bellhop = new Bellhop();
+
+    bellhop.connect();
+    bellhop.send('getPicture', cameraOptions);
+
+  }
+
 }
