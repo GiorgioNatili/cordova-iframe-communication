@@ -33,7 +33,27 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+      app.receivedEvent('deviceready');
+      app.initCommunication(document.getElementById('ext-content'));
+    },
+    initCommunication: function(target) {
+
+      // Create the bellhop object
+      var bellhop = new Bellhop();
+
+      // Pass in the iframe DOM object
+      bellhop.connect(target);
+      bellhop.on('getPicture', function(event){
+
+        navigator.camera.getPicture(app.cameraSuccess, app.cameraError, event.data);
+
+      });
+    },
+    cameraSuccess: function(info) {
+      alert('Yo!!!');
+    },
+    cameraError: function (error) {
+      alert('Ho no! ' + error.info);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
